@@ -59,7 +59,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	datesLocations, err := FetchRelations(artistID)
 	if err != nil {
-		displayError(w, "Internal Server Error", "Error fetching artist relations.", http.StatusInternalServerError)
+		displayError(w, "Internal Server Error", "Error fetching artist relations", http.StatusInternalServerError)
 		return
 	}
 
@@ -72,7 +72,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := renderTemplate(w, "artist.html", data); err != nil {
-		displayError(w, "Internal Server Error", "Error rendering the artist page.", http.StatusInternalServerError)
+		displayError(w, "Internal Server Error", "Error rendering the artist page", http.StatusInternalServerError)
 	}
 }
 
