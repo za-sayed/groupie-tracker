@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Artist.Name}} - Artist Details</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header>
+    <a href="/">Home Page</a>
+</header>
+<div class="artist-detail">
+    <div class="artist-image-container">
+        <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="artist-image-detail">
+    </div>
+    <div class="artist-info">
+        <h2>{{.Artist.Name}}</h2>
+        <p><strong>Members:</strong> {{range $index, $member := .Artist.Members -}}
+            {{if $index}}, {{end}}{{$member}}
+          {{- end -}}</p>
+        <p><strong>Creation Date:</strong> {{.Artist.CreationDate}}</p>
+        <p><strong>First Album:</strong> {{.Artist.FirstAlbum}}</p>
+        <p><strong>Concert Dates and Locations:</strong>
+        <ul>
+        {{range $city, $dates := .DatesLocations}}
+        <li>
+            <strong>{{ $city }}</strong>
+            <ul>
+                {{range $dates}}
+                <li>{{ . }}</li>
+                {{end}}
+            </ul>
+        </li>
+        {{end}}
+    </ul></p>
+
+    </div>
+</div>
+</body>
+</html>
