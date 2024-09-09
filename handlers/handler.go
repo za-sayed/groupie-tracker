@@ -87,7 +87,7 @@ func validateMethod(r *http.Request, allowedMethod string) error {
 // Extracts and validates the artist ID from the URL path.
 func extractArtistID(path string) (string, error) {
 	parts := strings.Split(path, "/")
-	if len(parts) < 3 {
+	if parts[2] == "" {
 		return "", fmt.Errorf("ID cannot be empty")
 	}
 
