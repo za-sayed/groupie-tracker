@@ -1,0 +1,126 @@
+/* General HTML & Body Styling */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    background-image: url("image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Ensures the background stays fixed during scroll */
+    color: rgb(255, 255, 255);
+    min-height: 100vh; /* Ensures full coverage even when content overflows */
+}
+
+/* Artist Info Styling */
+#artistInfoImg {
+    border-radius: 50%;
+    border: 3px solid #fff;
+    padding: 2px;
+}
+
+.ArtistPic {
+    display: grid;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.artistName {
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+    font-family: 'Trade Winds', cursive;
+    margin-bottom: 0;
+}
+
+.artistCreation {
+    font-size: 25px;
+    display: grid;
+    justify-content: center;
+    font-family: 'Trade Winds', cursive;
+    margin-top: 0;
+}
+
+.total {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.Information {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    font-size: 22px;
+    text-align: center;
+    font-family: 'Trade Winds', cursive;
+}
+
+.Subheading {
+    display: inline-block;
+    font-family: 'Trade Winds', cursive;
+    font-weight: 600;
+    font-size: 25px;
+    padding: 2px;
+    height: 10px;
+    margin-right: 50px;
+    text-align: center;
+}
+
+.Subheading a {
+    text-decoration: none;
+    color: white;
+}
+
+.list {
+    display: inline-block;
+    height: 5px;
+    padding: 16px;
+    text-align: center;
+    margin-right: 55px;
+}
+
+/* Content Styling */
+.content {
+    width: 160px;
+    max-height: 200px; /* Limit the height to avoid excessive page overflow */
+    overflow-y: auto; /* Enable scrolling within the dropdown */
+    z-index: 10;
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
+}
+
+.content a {
+    color: white;
+    padding: 5px 9px;
+    text-decoration: none;
+    display: inline-block;
+    width: 160px;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+}
+
+/* Additional styling for the return link */
+.return-link {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    font-family: 'Trade Winds', cursive;
+    margin: 20px;
+    transition: color 0.3s;
+}
+
+.return-link:hover {
+    font-size: 20px;
+}
+
+.return-link .arrow {
+    margin-right: 8px;
+    font-family: 'Trade Winds', cursive;
+    font-size: 18px;
+    display: inline-block;
+}

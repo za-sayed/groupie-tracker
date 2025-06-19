@@ -1,0 +1,80 @@
+    body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    background-image: url("image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: rgb(255, 255, 255); /* Consistent text color */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    position: relative; /* Allow positioning of the link */
+    }
+
+    /* Return Link Styling */
+    .return-link {
+    position: absolute; /* Absolute positioning */
+    top: 20px; /* Distance from the top */
+    left: 20px; /* Distance from the left */
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white; /* Primary color */
+    font-family: 'Trade Winds', cursive; /* Consistent font */
+    font-size: 18px;
+    transition: color 0.3s, transform 0.3s;
+    }
+
+    .return-link .arrow {
+    font-size: 20px; /* Slightly larger for visibility */
+    margin-right: 8px;
+    }
+
+    .return-link:hover {
+    font-size: 20px; /* Slightly enlarge on hover */
+    }
+
+    /* Error Container Styling */
+    .error-container {
+    width: 100%;
+    min-width: fit-content;
+    max-width: 600px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    color: #e4e2e3;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    }
+
+    /* Error Heading Styles */
+    .error-container h1 {
+    font-family: 'Trade Winds', cursive; /* Consistent font */
+    font-size: 6vh;
+    margin: 0;
+    color: #ef585f; /* Error color for emphasis */
+    }
+
+    .error-container h2 {
+    font-family: 'Trade Winds', cursive; /* Consistent font */
+    font-size: 3vh;
+    margin: 10px 0;
+    color: #ef585f; /* Consistent error color */
+    }
+
+    /* Error Message Styling */
+    .error-container p {
+    font-size: 18px;
+    margin: 20px 0;
+    font-family: 'Trade Winds', cursive;
+    color: #e4e2e3; /* Lighter text color for readability */
+    }

@@ -1,0 +1,117 @@
+/* Body Styling */
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-family: 'Lato', sans-serif;
+    /*background-color: rgb(51, 50, 50);*/
+    background-image: url("image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: rgb(255, 255, 255);
+}
+
+/* Title Styling */
+.TitleText {
+    text-align: center;
+    font-family: 'Trade Winds', cursive;
+    font-size: 6vh;
+    margin-top: 30px;
+    color: white;
+}
+
+/* Artist Container Styling */
+.artist-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 40px;
+    scrollbar-width: none;
+}
+
+.artist-container::-webkit-scrollbar {
+    /*height: 10px;*/
+    display: none;
+}
+
+/*.artist-container::-webkit-scrollbar-track {
+    background-color: #49424285;
+    border-radius: 10px;
+}
+
+.artist-container::-webkit-scrollbar-thumb {
+    background-color: #e9e9e5;
+    border-radius: 10px;
+}*/
+
+/* Blurry Image Styling */
+.blurry {
+    filter: blur(3px);
+    transition: filter 0.3s ease;
+}
+
+
+/* Artist Card Styling */
+.artist-card {
+    margin: 0 15px;
+    width: 240px;
+    flex: 0 0 auto;
+    text-align: center;
+    position: relative; /* Ensure positioning context for child elements */
+}
+
+.artist-card a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Apply hover effect on artist card */
+.artist-card:hover .artist-image {
+    animation: infiniteRotate 4s linear infinite; /* Infinite rotation on hover */
+    filter: brightness(100%);
+}
+
+/* Keyframe for infinite rotation */
+@keyframes infiniteRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Artist Image Styling */
+.artist-image {
+    width: 100%;
+    height: 240px;
+    border-radius: 50%;
+    border: 3px solid white;
+    padding: 5px;
+    transition: filter 0.5s ease, transform 0.3s ease;
+}
+
+/* Artist Name Styling */
+.artist-info {
+    text-align: center;
+    margin-top: 10px;
+    transition: transform 0.3s ease, font-size 0.3s ease;
+}
+
+.artist-name {
+    font-family: 'Trade Winds', cursive;
+    font-size: 18px;
+    transition: transform 0.3s ease, font-size 0.3s ease;
+}
+
+/* Hover effect to enlarge the name when hovering over the card */
+.artist-card:hover .artist-name {
+    font-size: 22px; /* Increase the font size on hover */
+    transform: scale(1.2); /* Slightly scale up the name */
+}
+

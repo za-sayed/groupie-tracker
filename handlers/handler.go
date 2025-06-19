@@ -11,14 +11,15 @@ import (
 
 // HomeHandler serves the homepage by rendering a list of artists.
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	if err := validateMethod(r, http.MethodGet); err != nil {
-		displayError(w, "Method Not Allowed", err.Error(), http.StatusMethodNotAllowed)
-		return
-	}
-
+	
 	if r.URL.Path != "/" {
 		displayError(w, "Page Not Found", "The page you are looking for is unavailable", http.StatusNotFound)
 		return
+	} else {
+		if err := validateMethod(r, http.MethodGet); err != nil {
+			displayError(w, "Method Not Allowed", err.Error(), http.StatusMethodNotAllowed)
+			return
+		}
 	}
 
 	artists, err := FetchArtists()
@@ -63,18 +64,38 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	locations, err := FetchLocations(artistID)
+	if err != nil {
+		displayError(w, "Internal Server Error", "Error fetching artist locations", http.StatusInternalServerError)
+		return
+	}
+
+	// Fetch concert dates for the artist
+	dates, err := FetchDates(artistID)
+	if err != nil {
+		displayError(w, "Internal Server Error", "Error fetching artist concert dates", http.StatusInternalServerError)
+		return
+	}
+
+	// Structure data for template rendering
 	data := struct {
 		Artist         Artist
 		DatesLocations map[string][]string
+		Locations      []string
+		Dates          []string
 	}{
 		Artist:         artist,
 		DatesLocations: datesLocations,
+		Locations:      locations,
+		Dates:          dates,
 	}
 
+	// Render the artist page template
 	if err := renderTemplate(w, "artist.html", data); err != nil {
 		displayError(w, "Internal Server Error", "Error rendering the artist page", http.StatusInternalServerError)
 	}
 }
+
 
 // Utility function to validate the HTTP method of a request.
 func validateMethod(r *http.Request, allowedMethod string) error {
@@ -87,7 +108,7 @@ func validateMethod(r *http.Request, allowedMethod string) error {
 // Extracts and validates the artist ID from the URL path.
 func extractArtistID(path string) (string, error) {
 	parts := strings.Split(path, "/")
-	if parts[2] == "" {
+	if len(parts) < 3 || parts[2] == "" {
 		return "", fmt.Errorf("ID cannot be empty")
 	}
 
@@ -129,7 +150,6 @@ func findArtistByID(artistID int) (Artist, error) {
 }
 
 
-
 // Helper function to render templates.
 func renderTemplate(w http.ResponseWriter, templateName string, data interface{}) error {
 	err := tpl.ExecuteTemplate(w, templateName, data)
@@ -155,6 +175,7 @@ func displayError(w http.ResponseWriter, errTitle string, errMsg string, errCode
 	w.WriteHeader(errCode)
 	err := tpl.ExecuteTemplate(w, "error.html", data)
 	if err != nil {
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		log.Printf("template execution error: %v", err)
 	}
 }

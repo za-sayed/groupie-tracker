@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Error {{.ErrorCode}}</title>
-    <link rel = "stylesheet" type = "text/css" href = "/static/error.css">
+    <link rel = "stylesheet" type = "text/css" href = "/static/err.css">
 </head>
 <body>
-<div class="error-container">
-    <h1>Error {{.ErrorCode}}</h1>
-    <h2>{{.ErrorTitle}}</h2>
-    <p>{{.ErrorMessage}}</p>
-    <a href="/">Home Page</a>
-</div>
+    <a href="/" class="return-link">
+        <span class="arrow">←</span>
+        Return to Home Page
+    </a>
+
+    <div class="error-container">
+        <h1>Error {{.ErrorCode}}</h1>
+        <h2>{{.ErrorTitle}}</h2>
+        <p>{{.ErrorMessage}}</p>
+    </div>
 </body>
 </html>
 

@@ -19,6 +19,17 @@ type Artist struct {
 	RelationsJson    string   `json:"relations"`
 }
 
+type Locations struct {
+	ID               int      `json:"id"`
+	Locations        []string `json:"locations"`
+	ConcertDatesJson string   `json:"dates"`
+}
+
+type Dates struct {
+	ID               int      `json:"id"`
+	Dates        []string 	  `json:"dates"`
+}
+
 type DatesLocations map[string][]string
 
 type Relations struct {
@@ -86,5 +97,67 @@ func FetchRelations(artistID int) (DatesLocations, error) {
 	}
 
 	return relations.DatesLocations, nil
+}
+
+// FetchLocations fetches the locations for a specific artist
+func FetchLocations(artistID int) ([]string, error) {
+	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/locations/%d", artistID)
+
+	// Perform the HTTP GET request
+	res, err := http.Get(url)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch locations for artist %d: %w", artistID, err)
+	}
+	defer res.Body.Close()
+
+	// Check for a successful response code
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", res.StatusCode)
+	}
+
+	// Read the response body
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// Unmarshal the JSON response into the locations struct
+	var locations Locations
+	if err := json.Unmarshal(body, &locations); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal locations for artist %d: %w", artistID, err)
+	}
+
+	return locations.Locations, nil
+}
+
+// FetchDates fetches the concert dates for a specific artist
+func FetchDates(artistID int) ([]string, error) {
+	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/dates/%d", artistID)
+
+	// Perform the HTTP GET request
+	res, err := http.Get(url)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch dates for artist %d: %w", artistID, err)
+	}
+	defer res.Body.Close()
+
+	// Check for a successful response code
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", res.StatusCode)
+	}
+
+	// Read the response body
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	// Unmarshal the JSON response into the dates struct
+	var dates Dates
+	if err := json.Unmarshal(body, &dates); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal dates for artist %d: %w", artistID, err)
+	}
+
+	return dates.Dates, nil
 }
 

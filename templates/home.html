@@ -1,24 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groupie-Tracker</title>
-    <link rel = "stylesheet" type = "text/css" href = "/static/home.css">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" type="text/css" href="/static/home.css">
 </head>
+
 <body>
-<header>
-    <h1>Groupie-Tracker</h1>
-</header>
-<div class="artist-container">
-    {{range .}}
-    <div class="artist-card">
-        <a href="/artist/{{.ID}}">
-            <img src="{{.Image}}" alt="{{.Name}}" class="artist-image">
-            <h2 class="artist-name">{{.Name}}</h2>
-        </a>
+    <header>
+        <div class="TitleText">
+            <h2>Groupie-Tracker</h2>
+        </div>
+    </header>
+
+    <div class="artist-container">
+        {{range .}}
+        <div class="artist-card">
+            <a href="/artist/{{.ID}}">
+                <img src="{{.Image}}" class="artist-image">
+                <div class="artist-info">
+                    <h2 class="artist-name">{{.Name}}</h2>
+                </div>
+            </a>
+        </div>
+        {{end}}
     </div>
-    {{end}}
-</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const artistImages = document.querySelectorAll('.artist-image');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.intersectionRatio === 1) {
+                entry.target.classList.remove('blurry');
+            } else {
+                entry.target.classList.add('blurry');
+            }
+        });
+    }, {
+        root: document.querySelector('.artist-container'),
+        threshold: Array.from({ length: 101 }, (_, i) => i / 100) // Creates an array [0, 0.01, 0.02, ..., 1]
+    });
+
+    artistImages.forEach(image => {
+        observer.observe(image);
+    });
+});
+
+    </script>
+
 </body>
+
 </html>
+

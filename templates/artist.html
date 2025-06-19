@@ -1,40 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{.Artist.Name}} - Artist Details</title>
-    <link rel = "stylesheet" type = "text/css" href = "/static/artist.css">
+    <link rel="stylesheet" type="text/css" href="/static/artist.css">
+    
 </head>
-<body>
-<header>
-    <a href="/">Home Page</a>
-</header>
-<div class="artist-detail">
-    <div class="artist-image-container">
-        <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" class="artist-image-detail">
-    </div>
-    <div class="artist-info">
-        <h2>{{.Artist.Name}}</h2>
-        <p><strong>Members:</strong> {{range $index, $member := .Artist.Members -}}
-            {{if $index}}, {{end}}{{$member}}
-          {{- end -}}</p>
-        <p><strong>Creation Date:</strong> {{.Artist.CreationDate}}</p>
-        <p><strong>First Album:</strong> {{.Artist.FirstAlbum}}</p>
-        <p><strong>Concert Dates and Locations:</strong>
-        <ul>
-        {{range $city, $dates := .DatesLocations}}
-        <li>
-            <strong>{{ $city }}</strong>
-            <ul>
-                {{range $dates}}
-                <li>{{ . }}</li>
-                {{end}}
-            </ul>
-        </li>
-        {{end}}
-    </ul></p>
 
+<body>
+
+    <!-- Return to Home Link -->
+    <a href="/" class="return-link">
+        <span class="arrow">←</span>
+        Return to Home Page
+    </a>
+
+    <div class="artistName">
+        {{.Artist.Name}}
     </div>
-</div>
+
+    <div class="artistCreation">
+        ({{.Artist.CreationDate}})
+    </div>
+    <br>
+
+    <div class="ArtistPic">
+        <img class="infoDiv" id="artistInfoImg" src="{{.Artist.Image}}" width="230px" height="230px">
+    </div>
+    <br>
+
+    <div class="total">
+        <div class="Information">
+            <h3 class="Subheading"><i>Members</i></h3>
+            {{range .Artist.Members}}
+            <ul class="list">{{.}}</ul>
+            {{end}}
+        </div>
+
+        <div class="Information">
+            <p class="Subheading"><i>First album</i></p>
+            <p class="list">{{.Artist.FirstAlbum}}</p>
+        </div>
+
+        <div class="Information" id="locanddate">
+            <p class="Subheading"><i><a href="{{.Locations}}" onClick="return false;">Location</a></i></p>
+            {{range $city, $dates := .DatesLocations}}
+            <ul class="list">{{ $city }}</ul>
+            {{end}}
+        </div>
+
+        <div class="Information">
+            <p class="Subheading"><i><a href="{{.Dates}}" onClick="return false;">Dates</a></i></p>
+            {{range $city, $dates := .DatesLocations}}
+            <ol class="list">
+                    <div class="content">
+                        {{range $dates}}
+                        <a>{{.}}</a>
+                        {{end}}
+                    </div>
+            </ol>
+            {{end}}
+        </div>
+    </div>
+
 </body>
+
 </html>
